@@ -1,1 +1,52 @@
 https://vqk67r-8080.bytexl.dev
+CODE->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Registration Form with HTML5 Validation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 28px;
+      font-weight: bold;
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="number"] {
+      width: 250px;
+      padding: 8px;
+      margin-bottom: 10px;
+    }
+    button {
+      padding: 8px 16px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Student Registration Form</h1>
+  <form>
+    <label for="name">Name:</label>
+    <input type="text" id="name" placeholder="Enter your full name" required />
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" placeholder="Enter your email" required />
+
+    <label for="age">Age:</label>
+    <input type="number" id="age" placeholder="Enter" min="1" required />
+
+    <br><br>
+    <button type="submit">Register</button>
+  </form>
+</body>
+</html>
