@@ -1,1 +1,131 @@
 https://v7qfa3-8080.bytexl.dev
+CODE->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+  <style>
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #000000;
+      --header-bg: #4CAF50;
+      --sidebar-bg: #f4f4f4;
+      --main-bg: #ffffff;
+      --footer-bg: #4CAF50;
+      --link-color: #0000ee;
+    }
+
+    body.dark-mode {
+      --bg-color: #121212;
+      --text-color: #ffffff;
+      --header-bg: #333333;
+      --sidebar-bg: #2a2a2a;
+      --main-bg: #1e1e1e;
+      --footer-bg: #1a1a1a;
+      --link-color: #cfcfcf;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      display: grid;
+      grid-template-areas:
+        "header header"
+        "sidebar main"
+        "footer footer";
+      grid-template-columns: 200px 1fr;
+      grid-template-rows: 60px 1fr 40px;
+      height: 100vh;
+    }
+
+    header {
+      grid-area: header;
+      background-color: var(--header-bg);
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    header label {
+      font-size: 14px;
+    }
+
+    aside {
+      grid-area: sidebar;
+      background-color: var(--sidebar-bg);
+      padding: 20px;
+    }
+
+    aside a {
+      display: block;
+      color: var(--link-color);
+      margin-bottom: 10px;
+      text-decoration: none;
+    }
+
+    main {
+      grid-area: main;
+      background-color: var(--main-bg);
+      padding: 20px;
+    }
+
+    footer {
+      grid-area: footer;
+      background-color: var(--footer-bg);
+      color: white;
+      text-align: center;
+      line-height: 40px;
+    }
+
+    .toggle-container {
+      display: flex;
+      align-items: center;
+    }
+
+    .toggle-container input {
+      margin-left: 8px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Admin Dashboard</h1>
+    <div class="toggle-container">
+      <label for="themeToggle">Dark Mode</label>
+      <input type="checkbox" id="themeToggle">
+    </div>
+  </header>
+
+  <aside>
+    <a href="#">Home</a>
+    <a href="#">Users</a>
+    <a href="#">Settings</a>
+  </aside>
+
+  <main>
+    <h2>Welcome, Admin!</h2>
+    <p>This is the main content area. Add charts, tables, or reports here.</p>
+  </main>
+
+  <footer>
+    © 2025 Admin Panel
+  </footer>
+
+  <script>
+    const toggle = document.getElementById('themeToggle');
+    toggle.addEventListener('change', function() {
+      document.body.classList.toggle('dark-mode');
+    });
+  </script>
+</body>
+</html>
