@@ -1,0 +1,53 @@
+https://6kbuhn-8080.bytexl.dev
+CODE->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Character Counter for Textarea</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .counter-box {
+      border: 1px solid #333;
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+    h2 {
+      margin-top: 0;
+    }
+    textarea {
+      width: 100%;
+      height: 100px;
+      font-size: 16px;
+      padding: 10px;
+      margin-bottom: 10px;
+      resize: none;
+    }
+    .counter {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="counter-box">
+    <h2>Live Character Counter</h2>
+    <textarea id="textInput" placeholder="Start typing..."></textarea>
+    <p>Characters: <span id="charCount">0</span></p>
+  </div>
+
+  <script>
+    const textInput = document.getElementById("textInput");
+    const charCount = document.getElementById("charCount");
+
+    textInput.addEventListener("input", () => {
+      charCount.textContent = textInput.value.length;
+    });
+  </script>
+
+</body>
+</html>
