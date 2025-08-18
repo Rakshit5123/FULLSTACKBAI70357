@@ -1,0 +1,76 @@
+https://pm16dl-8080.bytexl.dev
+CODE->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Product Filter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .product-box {
+      border: 1px solid #333;
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+    h2 {
+      margin-top: 0;
+    }
+    select {
+      margin-bottom: 15px;
+      padding: 5px;
+      font-size: 14px;
+    }
+    .product {
+      border: 1px solid #ccc;
+      padding: 8px;
+      margin: 5px 0;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="product-box">
+    <h2>Product List</h2>
+    <label for="categoryFilter">Filter by Category: </label>
+    <select id="categoryFilter">
+      <option value="All">All</option>
+      <option value="Clothing">Clothing</option>
+      <option value="Electronics">Electronics</option>
+      <option value="Books">Books</option>
+    </select>
+
+    <div id="productList">
+      <div class="product" data-category="Clothing">T-Shirt</div>
+      <div class="product" data-category="Clothing">Jeans</div>
+      <div class="product" data-category="Electronics">Headphones</div>
+      <div class="product" data-category="Electronics">Smartphone</div>
+      <div class="product" data-category="Books">Novel</div>
+      <div class="product" data-category="Books">Cookbook</div>
+    </div>
+  </div>
+
+  <script>
+    const filterDropdown = document.getElementById("categoryFilter");
+    const products = document.querySelectorAll(".product");
+
+    filterDropdown.addEventListener("change", () => {
+      const selectedCategory = filterDropdown.value;
+
+      products.forEach(product => {
+        if (selectedCategory === "All" || product.getAttribute("data-category") === selectedCategory) {
+          product.style.display = "block";
+        } else {
+          product.style.display = "none";
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
+
