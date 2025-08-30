@@ -1,0 +1,46 @@
+https://p5zcpd-8080.bytexl.dev
+CODE ->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ProductCard Component Demo</title>
+  <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.20.6/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const ProductCard = ({ name, price, inStock }) => {
+      return (
+        <div className="w-48 p-4 m-2 bg-white border rounded-lg shadow-sm">
+          <h2 className="text-lg font-semibold text-gray-800">{name}</h2>
+          <p className="text-md text-gray-600 mt-2">Price: ${price}</p>
+          <p className="text-sm text-gray-500 mt-1">
+            Status: {inStock ? "In Stock" : "Out of Stock"}
+          </p>
+        </div>
+      );
+    };
+
+    const App = () => {
+      return (
+        <div className="p-4">
+          <h1 className="text-2xl font-bold text-center mb-4">Products List</h1>
+          <div className="flex justify-center">
+            <ProductCard name="Wireless Mouse" price="25.99" inStock={true} />
+            <ProductCard name="Keyboard" price="45.5" inStock={false} />
+            <ProductCard name="Monitor" price="199.99" inStock={true} />
+          </div>
+        </div>
+      );
+    };
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
