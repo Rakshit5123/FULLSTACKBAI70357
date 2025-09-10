@@ -1,0 +1,113 @@
+https://x7g2wq-8080.bytexl.dev
+
+
+
+CODE->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Library Management (React in HTML)</title>
+    <!-- React + ReactDOM via CDN -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Babel for JSX support -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      .container {
+        border: 2px solid black;
+        padding: 15px;
+        margin: 20px;
+        max-width: 500px;
+      }
+      .book {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      function App() {
+        const [books, setBooks] = React.useState([
+          { title: "1984", author: "George Orwell" },
+          { title: "The Great Gatsby", author: "F. Scott Fitzgerald" },
+          { title: "To Kill a Mockingbird", author: "Harper Lee" }
+        ]);
+
+        const [searchTerm, setSearchTerm] = React.useState("");
+        const [newTitle, setNewTitle] = React.useState("");
+        const [newAuthor, setNewAuthor] = React.useState("");
+
+        const addBook = () => {
+          if (newTitle.trim() && newAuthor.trim()) {
+            setBooks([...books, { title: newTitle, author: newAuthor }]);
+            setNewTitle("");
+            setNewAuthor("");
+          }
+        };
+
+        const removeBook = (index) => {
+          setBooks(books.filter((_, i) => i !== index));
+        };
+
+        const filteredBooks = books.filter(
+          (book) =>
+            book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            book.author.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+
+        return (
+          <div className="container">
+            <h2>Library Management</h2>
+            <input
+              type="text"
+              placeholder="Search by title or author"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              style={{ display: "block", marginBottom: "10px" }}
+            />
+            <input
+              type="text"
+              placeholder="New book title"
+              value={newTitle}
+              onChange={(e) => setNewTitle(e.target.value)}
+              style={{ marginRight: "5px" }}
+            />
+            <input
+              type="text"
+              placeholder="New book author"
+              value={newAuthor}
+              onChange={(e) => setNewAuthor(e.target.value)}
+              style={{ marginRight: "5px" }}
+            />
+            <button onClick={addBook}>Add Book</button>
+            <div style={{ marginTop: "15px" }}>
+              {filteredBooks.map((book, index) => (
+                <div key={index} className="book">
+                  <span>
+                    <strong>{book.title}</strong> by {book.author}
+                  </span>
+                  <button onClick={() => removeBook(index)}>Remove</button>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(<App />);
+    </script>
+  </body>
+</html>
