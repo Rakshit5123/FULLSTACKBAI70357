@@ -1,0 +1,80 @@
+https://cicp2m-3000.bytexl.dev
+
+CODE-
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Employee Management System</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    button { margin: 5px; padding: 8px 12px; }
+    #output { margin-top: 20px; white-space: pre-line; }
+  </style>
+</head>
+<body>
+  <h2>Employee Management System</h2>
+  <button onclick="addEmployee()">Add Employee</button>
+  <button onclick="listEmployees()">List Employees</button>
+  <button onclick="removeEmployee()">Remove Employee</button>
+  <button onclick="exitApp()">Exit</button>
+
+  <div id="output"></div>
+
+  <script>
+    // Initial employees
+    let employees = [
+      { name: "Alice", id: "E101" },
+      { name: "Bob", id: "E102" },
+      { name: "Charlie", id: "E103" }
+    ];
+
+    const outputDiv = document.getElementById("output");
+
+    function showMessage(msg) {
+      outputDiv.innerText = msg;
+    }
+
+    function addEmployee() {
+      const name = prompt("Enter employee name:");
+      const id = prompt("Enter employee ID:");
+      if (name && id) {
+        employees.push({ name, id });
+        showMessage(`Employee ${name} (ID: ${id}) added successfully.`);
+      } else {
+        showMessage("Invalid input. Employee not added.");
+      }
+    }
+
+    function listEmployees() {
+      if (employees.length === 0) {
+        showMessage("No employees found.");
+      } else {
+        let list = "Employee List:\n";
+        employees.forEach((emp, i) => {
+          list += `${i + 1}. Name: ${emp.name}, ID: ${emp.id}\n`;
+        });
+        showMessage(list);
+      }
+    }
+
+    function removeEmployee() {
+      const id = prompt("Enter employee ID to remove:");
+      const index = employees.findIndex(emp => emp.id === id);
+      if (index !== -1) {
+        const removed = employees.splice(index, 1);
+        showMessage(`Employee ${removed[0].name} (ID: ${removed[0].id}) removed successfully.`);
+      } else {
+        showMessage("Employee not found.");
+      }
+    }
+
+    function exitApp() {
+      showMessage("Exiting Employee Management System. Refresh the page to start again.");
+    }
+  </script>
+</body>
+</html>
