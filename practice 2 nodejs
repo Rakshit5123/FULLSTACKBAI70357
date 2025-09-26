@@ -1,0 +1,124 @@
+https://yzt0bc-8080.bytexl.dev
+html:
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Playing Cards REST API</title>
+</head>
+<body>
+  <h2>Playing Cards REST API Demo</h2>
+  <button onclick="getCards()">Get All Cards</button>
+  <button onclick="getCard()">Get Card with ID 2</button>
+  <button onclick="addCard()">Add New Card</button>
+  <button onclick="deleteCard()">Delete Card with ID 1</button>
+
+  <pre id="output"></pre>
+
+  <script>
+    async function getCards() {
+      const res = await fetch("/cards");
+      const data = await res.json();
+      document.getElementById("output").textContent =
+        "GET /cards →\n" + JSON.stringify(data, null, 2);
+    }
+
+    async function getCard() {
+      const res = await fetch("/cards/2");
+      const data = await res.json();
+      document.getElementById("output").textContent =
+        "GET /cards/2 →\n" + JSON.stringify(data, null, 2);
+    }
+
+    async function addCard() {
+      const res = await fetch("/cards", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ suit: "Clubs", value: "Jack" })
+      });
+      const data = await res.json();
+      document.getElementById("output").textContent =
+        "POST /cards →\n" + JSON.stringify(data, null, 2);
+    }
+
+    async function deleteCard() {
+      const res = await fetch("/cards/1", { method: "DELETE" });
+      const data = await res.json();
+      document.getElementById("output").textContent =
+        "DELETE /cards/1 →\n" + JSON.stringify(data, null, 2);
+    }
+  </script>
+</body>
+</html>
+
+
+node.js:
+const express = require("express");
+const path = require("path");
+
+const app = express();
+const port = 3000;
+
+app.use(express.json());
+
+// In-memory card collection
+let cards = [
+  { id: 1, suit: "Hearts", value: "Ace" },
+  { id: 2, suit: "Spades", value: "King" },
+  { id: 3, suit: "Diamonds", value: "Queen" }
+];
+
+// Serve index.html
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "index.html"));
+});
+
+// GET all cards
+app.get("/cards", (req, res) => {
+  console.log("GET /cards called"); // terminal output
+  res.status(200).json(cards);
+});
+
+// GET card by ID
+app.get("/cards/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const card = cards.find(c => c.id === id);
+
+  if (card) {
+    console.log(`GET /cards/${id} →`, card);
+    res.status(200).json(card);
+  } else {
+    res.status(404).json({ message: "Card not found" });
+  }
+});
+
+// POST new card
+app.post("/cards", (req, res) => {
+  const { suit, value } = req.body;
+  const newCard = { id: cards.length + 1, suit, value };
+  cards.push(newCard);
+
+  console.log("POST /cards → Added:", newCard);
+  res.status(201).json(newCard);
+});
+
+// DELETE card by ID
+app.delete("/cards/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const index = cards.findIndex(c => c.id === id);
+
+  if (index !== -1) {
+    const deleted = cards.splice(index, 1)[0];
+    console.log(`DELETE /cards/${id} → Removed:`, deleted);
+    res.status(200).json({
+      message: `Card with ID ${id} removed`,
+      card: deleted
+    });
+  } else {
+    res.status(404).json({ message: "Card not found" });
+  }
+});
+
+// Start server
+app.listen(port, () => {
+  console.log(`✅ Server running at http://localhost:${port}`);
+});
